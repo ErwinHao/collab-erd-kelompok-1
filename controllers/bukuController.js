@@ -31,7 +31,7 @@ exports.getBuku = (req, res) => {
 exports.postBuku = (req, res) => {
     const judul = req.body.judul;
     const pengarang = req.body.pengarang;
-    let data = books[books.length - 1].nim + 1;
+    let data = books[books.length - 1].books + 1;
 
     const params = {
         noBuku: data,
@@ -44,5 +44,35 @@ exports.postBuku = (req, res) => {
     return res.status(201).json({
         success: true,
         params,
+    });
+};
+
+exports.putBuku = (req, res) => {
+    const judul = req.body.judul;
+    const pengarang = req.body.pengarang;
+
+    const params = { judul: newJudul, pengarang: newPengarang };
+
+    const noBuku = req.params.nim;
+
+    const fetchedBooks = books.find((i) => i.noBuku === noBuku);
+
+    const updated = {...fetchedBooks, ...params };
+
+    return res.status(200).json({
+        success: true,
+        updated,
+    });
+};
+
+exports.deleteBuku = (req, res) => {
+    const no = +req.params.books;
+
+    const deleted = books.filter((buku) => buku.no === no);
+
+    return res.status(200).json({
+        success: true,
+        message: `Deleted ${deleted[0].judul} from data!`,
+        deleted,
     });
 };
