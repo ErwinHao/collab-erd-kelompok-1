@@ -17,22 +17,50 @@ const mahasiswa = [
     },
     alamatMhs: 'Jl. tidakadajalan No.42',
   },
+  {
+    nim: 3,
+    namaMhs: {
+      namaDpn: 'Felix',
+      namaTgh: '',
+      namaBlkg: 'Hartanto',
+    },
+    alamatMhs: 'Jl. buntu no.99',
+  },
 ];
 
-exports.getMahasiswa = (req, res) => {
+// GET All Mahasiswa
+
+exports.getMahasiswas = (req, res) => {
   return res.status(200).json({
     success: true,
     mahasiswa,
   });
 };
 
+// GET One Mahasiswa
+
+exports.getMahasiswa = (req, res) => {
+  const nim = +req.params.nim;
+
+  const fetchedMhs = mahasiswa.find((mhs) => mhs.nim === nim);
+
+  return res.status(200).json({
+    success: true,
+    fetchedMhs,
+  });
+};
+
+// POST Mahasiswa
+
 exports.postMahasiswa = (req, res) => {
-  const namaMhs = req.body.namaMhs;
-  const alamatMhs = req.body.alamatMhs;
-  let rand = mahasiswa[mahasiswa.length - 1].nim + 1;
+  // const namaMhs = req.body.namaMhs;
+  // const alamatMhs = req.body.alamatMhs;
+
+  const { namaMhs, alamatMhs } = req.body;
+  let nim = mahasiswa[mahasiswa.length - 1].nim + 1;
 
   const params = {
-    nim: rand,
+    nim,
     namaMhs,
     alamatMhs,
   };
@@ -45,11 +73,15 @@ exports.postMahasiswa = (req, res) => {
   });
 };
 
-exports.putMahasiswa = (req, res) => {
-  const newNama = req.body.namaMhs;
-  const newAlamat = req.body.alamatMhs;
+// PUT Mahasiswa
 
-  const params = { namaMhs: newNama, alamatMhs: newAlamat };
+exports.putMahasiswa = (req, res) => {
+  // const namaMhs = req.body.namaMhs;
+  // const alamatMhs = req.body.alamatMhs;
+
+  const { namaMhs, alamatMhs } = req.body;
+
+  const params = { namaMhs, alamatMhs };
 
   const nim = req.params.nim;
 
@@ -62,6 +94,8 @@ exports.putMahasiswa = (req, res) => {
     updated,
   });
 };
+
+// DELETE Mahasiswa
 
 exports.deleteMahasiswa = (req, res) => {
   const nim = +req.params.nim;

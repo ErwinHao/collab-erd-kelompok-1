@@ -2,13 +2,15 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  getMahasiswa,
+  getMahasiswas,
   postMahasiswa,
   putMahasiswa,
   deleteMahasiswa,
+  getMahasiswa,
 } = require('../controllers/mahasiswaController');
 
-router.get('/mahasiswa', getMahasiswa);
+router.get('/mahasiswa', getMahasiswas);
+router.get('/mahasiswa/:nim', getMahasiswa);
 router.post('/mahasiswa', postMahasiswa);
 router.put('/mahasiswa/:nim', putMahasiswa);
 router.delete('/mahasiswa/:nim', deleteMahasiswa);
