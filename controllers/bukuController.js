@@ -31,7 +31,7 @@ exports.getBuku = (req, res) => {
 exports.postBuku = (req, res) => {
   const judul = req.body.judul;
   const pengarang = req.body.pengarang;
-  let data = books[books.length - 1].books + 1;
+  let data = books[books.length - 1].noBuku + 1;
 
   const params = {
     noBuku: data,
