@@ -17,12 +17,32 @@ const mahasiswa = [
     },
     alamatMhs: 'Jl. tidakadajalan No.42',
   },
+  {
+    nim: 3,
+    namaMhs: {
+      namaDpn: 'Felix',
+      namaTgh: '',
+      namaBlkg: 'Hartanto',
+    },
+    alamatMhs: 'Jl. buntu no.99',
+  },
 ];
 
-exports.getMahasiswa = (req, res) => {
+exports.getMahasiswas = (req, res) => {
   return res.status(200).json({
     success: true,
     mahasiswa,
+  });
+};
+
+exports.getMahasiswa = (req, res) => {
+  const nim = +req.params.nim;
+
+  const fetchedMhs = mahasiswa.find((mhs) => mhs.nim === nim);
+
+  return res.status(200).json({
+    success: true,
+    fetchedMhs,
   });
 };
 
